@@ -3,17 +3,11 @@ import { TodoType } from "../App";
 
 export function TodoTable({
   todo,
-  checkTodo,
   onClick
 }: {
   todo: TodoType[];
-  checkTodo: (id: number) => void;
   onClick: (id: number) => void;
 }) {
-  const onCheck = (id: number) => {
-    checkTodo(id);
-  };
-
   const onItemClick = (id: number) => {
     onClick(id);
   };
@@ -42,7 +36,6 @@ export function TodoTable({
               type="checkbox"
               className="checkbox"
               checked={checked}
-              //onChange={() => onCheck(id)}
             ></input>
           </div>
         );

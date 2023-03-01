@@ -3,30 +3,35 @@ import { TodoType } from "../App";
 
 export function ModalContent({
   info,
-  checkTodo
+  selectedTodo
 }: {
-  info: TodoType;
-  checkTodo: (id: number) => void;
+  info: TodoType[];
+  selectedTodo: number;
 }) {
-  const [inputChecked, setInputChecked] = useState(info.checked);
+  const [inputChecked, setInputChecked] = useState(
+    info.find((item) => item.id === selectedTodo)?.checked
+  );
 
-  const onCheck = (id: number) => {
-    checkTodo(id);
+  let selectedTodoItem = info.find((item) => item.id === selectedTodo);
+
+  const onCheck = () => {
     setInputChecked(!inputChecked);
+    if (selectedTodoItem !== undefined) {
+      selectedTodoItem.checked = !selectedTodoItem?.checked;
+    }
   };
 
   return (
     <div className="modal-content">
-      <h2>{info.title}</h2>
+      <h2>{selectedTodoItem?.title}</h2>
       <p>Description:</p>
-      <p>{info.description}</p>
+      <p>{selectedTodoItem?.description}</p>
       <div>
         Status:{" "}
         <input
           type="checkbox"
-          // defaultChecked={false}
           checked={inputChecked}
-          onChange={() => onCheck(info.id)}
+          onChange={() => onCheck()}
         ></input>
       </div>
     </div>
